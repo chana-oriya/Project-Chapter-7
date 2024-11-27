@@ -24,7 +24,7 @@ useEffect(()=>{
           <Route path="/register" element={<Register />} />
           <Route path="/home" element={<Home setCurrentuser={setCurrentuser}/>}>
               <Route index element={<Info currentuser={currentuser} />} />
-              <Route path="todos"element={<Todos />} />
+              <Route path="todos"element={<Todos currentuser={currentuser}/>} />
               <Route path="posts" element={<Posts />} >
                  <Route path=":id:"element={<Post />} />
               </Route>

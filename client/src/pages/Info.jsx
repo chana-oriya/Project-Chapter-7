@@ -18,7 +18,7 @@ const Info = ({ currentuser }) => {
   return (
     <div>
       <form>
-      {Object.entries(formData).filter(([key]) => key !== 'id').map(([key, value]) => (
+      {formData && Object.entries(formData).filter(([key]) => key !== 'id').map(([key, value]) => (
         <div key={key}>
           <label htmlFor={key}>{key.charAt(0).toUpperCase() + key.slice(1)}:</label>
           <input

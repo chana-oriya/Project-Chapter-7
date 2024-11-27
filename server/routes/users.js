@@ -7,6 +7,7 @@ router.get('/',(req, res, next)=> {
 });
 
 router.post('/login',async (req, res)=>{
+  console.log("hello");
   findUser(req.body.username, req.body.password, (result) => {
     if (!result.success) {
       return res.status(401).send("Invalid username or password.");

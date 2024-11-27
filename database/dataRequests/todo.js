@@ -15,6 +15,7 @@ con.connect(function(err) {
 function getAllTodos(user_id, callback){
     con.query(`SELECT * FROM todo WHERE user_id = ${user_id}`,
     (err, result) => {
+        console.log("here" + result);
         if(err) callback({success: false});
         else callback({success: true, data: JSON.stringify(result)});
     });
