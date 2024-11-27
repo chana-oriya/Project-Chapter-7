@@ -30,18 +30,12 @@ function addUser(user, callback){
      (err, result) => {
         if (err) callback({success: false});
         else{
-            con.query(`SELECT * FROM user WHERE username = '${user.username}'`,
+            user.id = result.insertedID;
+            con.query(`INSERT INTO user_password (password, user_id) VALUES ('${user.password}', ${result[0].id})`,
             (err, result) => {
                 if (err) callback({success: false});
-                else {
-                    const insertedUser = result[0];
-                    con.query(`INSERT INTO user_password (password, user_id) VALUES ('${user.password}', ${result[0].id})`,
-                    (err, result) => {
-                        if (err) callback({success: false});
-                        else callback({success: true, info: JSON.stringify(insertedUser)});
-                    });  
-                }
-            });
+                else callback({success: true, info: JSON.stringify(user)});
+            });  
         }
     });
 }
