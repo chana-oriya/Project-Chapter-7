@@ -8,22 +8,6 @@ var con = mysql.createConnection({
 });
 
 
-// sqlRequest("CREATE TABLE user (id int NOT NULL PRIMARY KEY AUTO_INCREMENT ," + 
-//     "username VARCHAR(255),name VARCHAR(255)), email VARCHAR(255)");
-
-// sqlRequest("CREATE TABLE user_password (user_id int , password VARCHAR(255)")
-
-// sqlRequest("CREATE TABLE todo (id int NOT NULL PRIMARY KEY AUTO_INCREMENT ," + 
-//     "user_id int, title text, completed boolean");
-
-// sqlRequest("CREATE TABLE post (id int NOT NULL PRIMARY KEY AUTO_INCREMENT ," + 
-//     "user_id int, title text, body text")
-
-// sqlRequest("CREATE TABLE comment (id int NOT NULL PRIMARY KEY AUTO_INCREMENT ," + 
-//     "post_id int, name text, body text , email VARCHAR(255)")
-
-
-
 con.connect(function(err) {
     if (err) throw err;
     console.log("Connected!");
@@ -33,20 +17,24 @@ con.connect(function(err) {
         console.log("Table created");
         });
     }
-    sqlRequest("CREATE TABLE user (id int NOT NULL PRIMARY KEY AUTO_INCREMENT ," + 
-        "username VARCHAR(255),name VARCHAR(255), email VARCHAR(255))");
+
+    sqlRequest("DROP TABLE comment");
+    sqlRequest("DROP TABLE user");
+    sqlRequest("DROP TABLE todo");
+    sqlRequest("DROP TABLE post");
+    sqlRequest("DROP TABLE user_password");
+
+    sqlRequest("CREATE TABLE user (id int NOT NULL PRIMARY KEY AUTO_INCREMENT UNIQUE," + 
+        "username VARCHAR(255) UNIQUE,name VARCHAR(255), email VARCHAR(255))");
     
     sqlRequest("CREATE TABLE user_password (user_id int , password VARCHAR(255))")
     
-    sqlRequest("CREATE TABLE todo (id int NOT NULL PRIMARY KEY AUTO_INCREMENT ," + 
+    sqlRequest("CREATE TABLE todo (id int NOT NULL PRIMARY KEY AUTO_INCREMENT UNIQUE," + 
         "user_id int, title text, completed boolean)");
     
-    sqlRequest("CREATE TABLE post (id int NOT NULL PRIMARY KEY AUTO_INCREMENT ," + 
+    sqlRequest("CREATE TABLE post (id int NOT NULL PRIMARY KEY AUTO_INCREMENT UNIQUE," + 
         "user_id int, title text, body text)")
     
-    sqlRequest("CREATE TABLE comment (id int NOT NULL PRIMARY KEY AUTO_INCREMENT ," + 
-        "post_id int, name text, body text , email VARCHAR(255))")
-    
-    
-  
+    sqlRequest("CREATE TABLE comment (id int NOT NULL PRIMARY KEY AUTO_INCREMENT UNIQUE," + 
+        "post_id int, name text, body text , email VARCHAR(255))")  
 });
