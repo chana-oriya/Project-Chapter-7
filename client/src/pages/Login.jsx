@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import apiRequest from "../functions/requestApi";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
@@ -29,6 +29,7 @@ const Login = () => {
     if (user.error) {
       alert(user.error);
     } else {
+      localStorage.setItem("currentuser",user);
       console.log('user:', user);
       navigate("/home");
     }
@@ -61,6 +62,7 @@ const Login = () => {
             onChange={handleChange}
           />
         </div>
+        <Link to="/register">dont have an acount? register here</Link><br />
         <button type="submit">Login</button>
       </form>
     </div>

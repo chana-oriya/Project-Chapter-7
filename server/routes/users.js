@@ -26,8 +26,9 @@ try{
     password:req.body.password,
     email:""
   }
-  const result = await addUser(newUser);
-  res.status(200).send(result);
+  await addUser(newUser,(result)=>{
+    res.status(200).send(result.info);
+  });
 }catch(err){
   res.status(401).send(`Register failed: ${err}`);
 }
