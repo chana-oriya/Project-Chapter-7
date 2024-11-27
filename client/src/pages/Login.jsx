@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+import apiRequest from "../functions/requestApi";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -9,10 +13,25 @@ const Login = () => {
       [name]: value,
     }));
   };
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Name:", formData.username);
+    console.log("Username:", formData.username);
     console.log("Password:", formData.password);
+
+    const settings = {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(formData),
+    };
+
+    const user = await apiRequest("users/login", settings);
+    if (user.error) {
+      alert(user.error);
+    } else {
+      console.log('user:', user);
+      navigate("/home");
+    }
   };
 
   return (
@@ -20,13 +39,13 @@ const Login = () => {
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="name">Name:</label>
+          <label htmlFor="username">Username:</label>
           <br />
           <input
-            id="name"
+            id="username"
             type="text"
-            name="name"
-            value={formData.name}
+            name="username" 
+            value={formData.username}  
             onChange={handleChange}
           />
         </div>
@@ -37,8 +56,8 @@ const Login = () => {
           <input
             id="password"
             type="password"
-            name="password"
-            value={formData.password}
+            name="password"  
+            value={formData.password}  
             onChange={handleChange}
           />
         </div>
@@ -49,3 +68,4 @@ const Login = () => {
 };
 
 export default Login;
+
