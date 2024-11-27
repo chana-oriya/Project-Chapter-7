@@ -7,6 +7,11 @@ var con = mysql.createConnection({
   database: "instagram"
 });
 
+con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+});
+
 
 function findUser(username, password, callback){
     con.connect(function(err) {
@@ -26,20 +31,30 @@ function findUser(username, password, callback){
 //findUser("Bret", "hildegard.org1", console.log);
 
 function addUser(user, callback){
-    con.connect(function(err) {
-        if (err) throw err;
-        console.log("Connected!");
-        con.query(`INSERT INTO user (user.name, user.username, user.email) VALUES ` +
-        `('${user.name}', '${user.username}', '${user.email}')`,
-        function (err, result) {
-            if (err) callback({success: false});
-            // console.log(result);
-            // if(!result)  callback({success: false})
-            else callback({success: true, info: JSON.stringify(result)});
-        });
-    })
+    con.query(`INSERT INTO user (user.name, user.username, user.email) VALUES ` +
+    `('${user.name}', '${user.username}', '${user.email}')`,
+     (err, result) => {
+        if (err) callback({success: false});
+        else{
+            con.query(`SELECT * FROM user WHERE username = '${user.username}'`,
+            (err, result) => {
+                if (err) callback({success: false});
+                else {
+                    const insertedUser = result[0];
+                    con.query(`INSERT INTO user_password (password, user_id) VALUES ('${user.password}', ${result[0].id})`,
+                        (err, result) => {
+                            if (err) callback({success: false});
+                            else callback({success: true, info: JSON.stringify(insertedUser)});
+                        }
+                    );  
+                }
+            }
+            );
+        }
+    });
 }
 
-addUser({name: "chana", username: "chana_f1", email: "chana@g"}, console.log);
+//addUser({name: "chana", username: "chana_feu", email: "chana@g"}, console.log);
 
 module.exports.findUser = findUser;
+module.exports.addUser = addUser;
