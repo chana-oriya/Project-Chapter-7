@@ -16,7 +16,7 @@ function getAllTodos(user_id, callback){
     con.query(`SELECT * FROM todo WHERE user_id = ${user_id}`,
     (err, result) => {
         if(err) callback({success: false});
-        else callback({success: true, data: result});
+        else callback({success: true, data: JSON.stringify(result)});
     });
 }
 
