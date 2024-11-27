@@ -9,12 +9,13 @@ router.get('/',(req, res, next)=> {
 router.post('/login',async (req, res)=>{
   // body:{username: password:}
   try{
-    const result = await findUser(req.body.username, req.body.password)//return false or user details, no password
-    if (!result)throw new Error("Invalid username or password.");
-    console.log('result: ', result);
-    res.status(200).send(result);
-  }catch(err){
-    res.status(401).send(`Login failed: ${err}`);
+    await findUser(req.body.username, req.body.password,(result)=>{
+      console.log('result: ', result);
+      if (!result.success)throw new Error("Invalid username or password.");
+      res.status(200).send(result.info);
+    })//return false or user details, no password
+    }catch(err){
+      res.status(401).send(`Login failed: ${err}`);
 
   }
 })
