@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const Login = () => {
-  const [formData, setFormData] = useState({ name: "", password: "" });
+  const [formData, setFormData] = useState({ username: "", password: "" });
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -11,7 +11,7 @@ const Login = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Name:", formData.name);
+    console.log("Name:", formData.username);
     console.log("Password:", formData.password);
   };
 
