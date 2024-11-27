@@ -1,24 +1,20 @@
 const express = require('express');
 const router = express.Router();
-
+const {findUser} = require("../../database/dataRequests/register")
 /* GET users listing. */
 router.get('/',(req, res, next)=> {
   res.send('respond with a resource');
 });
 
 router.post('/login',async (req, res)=>{
-  // body:{username: password:}
-  try{
-    await findUser(req.body.username, req.body.password,(result)=>{
-      console.log('result: ', result);
-      if (!result.success)throw new Error("Invalid username or password.");
-      res.status(200).send(result.info);
-    })//return false or user details, no password
-    }catch(err){
-      res.status(401).send(`Login failed: ${err}`);
-
-  }
-})
+  findUser(req.body.username, req.body.password, (result) => {
+    if (!result.success) {
+      return res.status(401).send("Invalid username or password.");
+    }
+    res.status(200).send(result.info);
+  });
+});
+  
 
 router.post('/register',async (req, res)=>{
 try{
@@ -30,8 +26,9 @@ try{
     password:req.body.password,
     email:""
   }
-  const result = await addUser(newUser);
-  res.status(200).send(result);
+  await addUser(newUser,(result)=>{
+    res.status(200).send(result.info);
+  });
 }catch(err){
   res.status(401).send(`Register failed: ${err}`);
 }

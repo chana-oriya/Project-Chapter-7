@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "./pages/Layout";
 import Login from "./pages/Login";
@@ -11,7 +11,10 @@ import Post from "./pages/Post"
 import './App.css'
 
 function App() {
-
+const [currentuser,setCurrentuser]=useState({})
+useEffect(()=>{
+  setCurrentuser(JSON.parse(localStorage.getItem("currentuser")))
+},[])
   return (
     <>
       <Router>
@@ -19,8 +22,8 @@ function App() {
           <Route path="/" element={<Layout />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/home" element={<Home />}>
-              <Route index element={<Info/>} />
+          <Route path="/home" element={<Home setCurrentuser={setCurrentuser}/>}>
+              <Route index element={<Info currentuser={currentuser} />} />
               <Route path="todos"element={<Todos />} />
               <Route path="posts" element={<Posts />} >
                  <Route path=":id:"element={<Post />} />

@@ -22,7 +22,7 @@ const Register = () => {
       [name]: value,
     }));
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if(varify){
       alert("varify password!")
@@ -30,6 +30,19 @@ const Register = () => {
     }
     console.log("Name:", formData.name);
     console.log("Password:", formData.password);
+    const settings = {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(formData),
+    };
+    const user = await apiRequest("users/register", settings);
+    if(user.error){
+      alert(user.error)
+    }else{
+      localStorage.setItem("currentuser",user);
+      console.log('user:', user);
+      navigate("/home");
+    }
   };
 
   
