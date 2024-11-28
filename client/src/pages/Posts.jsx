@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import apiRequest from "../functions/requestApi";import checkIfLogedin from "../functions/checkIfLogedin";
+import apiRequest from "../functions/requestApi";
+import checkIfLogedin from "../functions/checkIfLogedin";
 import PostItem from "../components/PostItem";
 
 const Posts = ({currentuser}) => {

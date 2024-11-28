@@ -35,4 +35,7 @@ router.get('/:user_id', (req, res, next)=>{
 //     })
 // })
 
+
+const commentRouter = require('../routes/comment');
+router.use('/:postId/comment', commentRouter);
 module.exports = router;
