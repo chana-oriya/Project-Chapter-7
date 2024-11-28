@@ -32,13 +32,13 @@ function addTodo(user_id, todoTitle, callback){
     )
 }
 
-function editTodo(todo_id, key, value){
+function editTodo(todo_id, key, value, callback){
     if(typeof value == "string")    value = `'${value}'`;
     con.query(`UPDATE todo SET ${key} = '${value}' WHERE id = ${todo_id}`,
     (err, result) => {
         console.log(result);
         if(err) callback({success: false});
-        else    callback({success: true, todoID: result.insertId});
+        else    callback({success: true});
     })
 }
 

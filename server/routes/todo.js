@@ -22,4 +22,11 @@ router.post('/', (req, res,next)=>{
     })
 })
 
+router.put('/:todo_id', (req, res,next) => {
+    editTodo(req.params.todo_id, req.body.key, req.body.value, (result) => {
+        if(!result.success) res.status(401).send("could not add to-dos");
+        else res.status(200).send(null);
+    })
+})
+
 module.exports = router;
