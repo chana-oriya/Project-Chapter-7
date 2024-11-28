@@ -45,6 +45,16 @@ function editTodo(todo_id, key, value, callback){
     })
 }
 
+function deleteTodo(todo_id, callback){
+    con.query(`DELETE FROM todo WHERE id = ${todo_id}`,
+    (err, result) => {
+        console.log(result);
+        if(err) callback({success: false});
+        else    callback({success: true});
+    });
+}
+
+module.exports.deleteTodo = deleteTodo;
 module.exports.editTodo = editTodo;
 module.exports.addTodo = addTodo;
 module.exports.getAllTodos = getAllTodos;
