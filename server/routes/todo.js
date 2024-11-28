@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {getAllTodos, addTodo, editTodo} = require('../../database/dataRequests/todo');
+const {getAllTodos, addTodo, editTodo, deleteTodo} = require('../../database/dataRequests/todo');
 console.log(getAllTodos);
 
 router.get('/:user_id', (req, res, next)=>{
@@ -26,6 +26,12 @@ router.put('/:todo_id', (req, res,next) => {
     editTodo(req.params.todo_id, req.body.key, req.body.value, (result) => {
         if(!result.success) res.status(401).send("could not add to-dos");
         else res.status(200).send(null);
+    })
+})
+
+router.delete('/:todo_id', (req,res,next) => {
+    deleteTodo(req.params.todo_id, (result) => {
+        res.status(result.success ? 200 : 401);
     })
 })
 
