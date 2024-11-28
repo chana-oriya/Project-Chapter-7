@@ -12,4 +12,12 @@ router.get('/:user_id', (req, res, next)=>{
   })
 });
 
+router.post('/:user_id', (req, res,next)=>{
+    console.log(req.body.title);
+    addTodo(req.params.user_id, req.body.title, (result) => {
+        console.log(result);
+        res.send(result);
+    })
+})
+
 module.exports = router;
