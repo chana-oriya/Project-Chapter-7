@@ -43,4 +43,4 @@ const Posts = ({currentuser}) => {
   )
 }
 
-export default Posts
+export default Posts;
