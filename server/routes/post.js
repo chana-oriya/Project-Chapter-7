@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {getAllPosts} = require('../../database/dataRequests/post');
+const {getAllPosts, deletePost} = require('../../database/dataRequests/post');
 
 router.get('/:user_id', (req, res, next)=>{
     console.log("im here!");
@@ -29,11 +29,12 @@ router.get('/:user_id', (req, res, next)=>{
 //     })
 // })
 
-// router.delete('/:todo_id', (req,res,next) => {
-//     deleteTodo(req.params.todo_id, (result) => {
-//         res.status(result.success ? 200 : 401);
-//     })
-// })
+router.delete('/:post_id', (req,res,next) => {
+  deletePost(req.params.post_id, (result) => {
+      if(!result.success) res.status(401).send("could not delete post");
+      else res.status(200).send("delete successful");
+  })
+})
 
 
 const commentRouter = require('../routes/comment');

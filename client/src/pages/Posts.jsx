@@ -21,6 +21,12 @@ const Posts = ({currentuser}) => {
       getPosts();
     }
   }, []);
+
+  const handleDelete = (id) => {
+    // Remove the todo from the state
+    setPosts(posts.filter(post => post.id !== id));
+  };
+
   return (
     <div key="posts_key">
       <h1>Posts</h1>
@@ -37,7 +43,7 @@ const Posts = ({currentuser}) => {
       {!posts && <h3>loading...</h3>}
       {posts && posts.map((post) => (
         <div key={"post_" + post.id}>
-          <PostItem post={post}  />
+          <PostItem post={post} onDelete={handleDelete} />
         </div>
         ))}
     </div>
