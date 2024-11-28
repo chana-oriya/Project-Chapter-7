@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import apiRequest from "../functions/requestApi";
 
-const TodoItem = ({ todo, onToggle, onUpdateTitle }) => {
+const TodoItem = ({ todo, onToggle, onUpdateTitle, onDelete  }) => {
   const [editMode, setEditMode] = useState(false);
   const [newTitle, setNewTitle] = useState(todo.title); 
   const [isTitleUpdated, setIsTitleUpdated] = useState(false);
@@ -25,12 +25,17 @@ const TodoItem = ({ todo, onToggle, onUpdateTitle }) => {
   };
   
   const handleDelete = () =>{
-    apiRequest(`${todo.id}`,{
+    const resault = apiRequest(`todos/${todo.id}`,{
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
       })
+    if (resault.error){
+        console.log('resault.error: ', resault.error);
+    }else{
+        onDelete(todo.id);
+    }  
   }
 
   

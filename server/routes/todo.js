@@ -32,7 +32,8 @@ router.put('/:todo_id', (req, res,next) => {
 
 router.delete('/:todo_id', (req,res,next) => {
     deleteTodo(req.params.todo_id, (result) => {
-        res.status(result.success ? 200 : 401);
+        if(!result.success) res.status(401).send("could not delete to-do");
+        else res.status(200).send("delete successful");
     })
 })
 

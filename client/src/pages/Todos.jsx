@@ -41,6 +41,11 @@ const Todos = ({currentuser}) => {
     );
   };
 
+  const handleDelete = (id) => {
+    // Remove the todo from the state
+    setTodos(todos.filter(todo => todo.id !== id));
+  };
+
   return (
     <div key="todos">
       <h1>Todos</h1>
@@ -55,7 +60,12 @@ const Todos = ({currentuser}) => {
       )}
       {!todos && <h3>loading...</h3>}
       {todos && todos.map((todo) => (
-          <TodoItem todo={todo} key={todo.id} onToggle={toggleTodo} onUpdateTitle={handleUpdateTitle} />
+          <TodoItem 
+            todo={todo} 
+            key={todo.id} 
+            onToggle={toggleTodo} 
+            onUpdateTitle={handleUpdateTitle} 
+            onDelete={handleDelete}/>
         ))}
     </div>
   );
