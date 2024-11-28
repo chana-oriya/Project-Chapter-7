@@ -54,7 +54,6 @@ function deleteTodo(todo_id, callback){
     });
 }
 
-
 module.exports.deleteTodo = deleteTodo;
 module.exports.editTodo = editTodo;
 module.exports.addTodo = addTodo;
