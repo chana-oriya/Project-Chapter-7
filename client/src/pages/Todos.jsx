@@ -21,10 +21,22 @@ const Todos = ({currentuser}) => {
     }
   }, []);
 
+
+
+
   const toggleTodo = (id) => {
     setTodos(
       todos.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
+  };
+
+
+  const handleUpdateTitle = (id, newTitle) => {
+    setTodos((prevList) =>
+      prevList.map((todo) =>
+        todo.id === id ? { ...todo, title: newTitle } : todo
       )
     );
   };
@@ -43,7 +55,7 @@ const Todos = ({currentuser}) => {
       )}
       {!todos && <h3>loading...</h3>}
       {todos && todos.map((todo) => (
-          <TodoItem todo={todo} key={todo.id} onToggle={toggleTodo} />
+          <TodoItem todo={todo} key={todo.id} onToggle={toggleTodo} onUpdateTitle={handleUpdateTitle} />
         ))}
     </div>
   );
