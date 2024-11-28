@@ -45,16 +45,16 @@ function getAllPosts(user_id, callback){
 //     })
 // }
 
-// function deleteTodo(todo_id, callback){
-//     con.query(`DELETE FROM todo WHERE id = ${todo_id}`,
-//     (err, result) => {
-//         console.log(result);
-//         if(err) callback({success: false});
-//         else    callback({success: true});
-//     });
-// }
+function deletePost(post_id, callback){
+    con.query(`DELETE FROM post WHERE id = ${post_id}`,
+    (err, result) => {
+        console.log(result);
+        if(err) callback({success: false});
+        else    callback({success: true});
+    });
+}
 
-// module.exports.deleteTodo = deleteTodo;
+ module.exports.deletePost = deletePost;
 // module.exports.editTodo = editTodo;
 // module.exports.addTodo = addTodo;
 module.exports.getAllPosts = getAllPosts;
