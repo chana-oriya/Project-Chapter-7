@@ -22,10 +22,11 @@ function getAllTodos(user_id, callback){
 }
 
 function addTodo(user_id, todoTitle, callback){
+    console.log("here");
     con.query('INSERT INTO todo (user_id, title, completed) VALUES ' +
     `(${user_id}, '${todoTitle}', FALSE)`,
     (err, result) => {
-        console.log(result);
+        console.log("result1: ",result);
         if(err) callback({success: false});
         else    callback({success: true, todoID: result.insertId});
     }
@@ -33,10 +34,12 @@ function addTodo(user_id, todoTitle, callback){
 }
 
 function editTodo(todo_id, key, value, callback){
+    console.log("here");
     if(typeof value == "string")    value = `'${value}'`;
-    con.query(`UPDATE todo SET ${key} = '${value}' WHERE id = ${todo_id}`,
+    con.query(`UPDATE todo SET ${key} = ${value} WHERE id = ${todo_id}`,
     (err, result) => {
-        console.log(result);
+        console.log('result: ', result);
+        console.log("err: " ,err);
         if(err) callback({success: false});
         else    callback({success: true});
     })

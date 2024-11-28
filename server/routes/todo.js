@@ -14,18 +14,19 @@ router.get('/:user_id', (req, res, next)=>{
 
 router.post('/', (req, res,next)=>{
     const title = req.body.title;
-    console.log(title);
-    addTodo(req.body.userID, title, (result) => {
-        console.log(result);
+    console.log("title:",title);
+    addTodo(req.body.user_id, title, (result) => {
+        console.log("result: ",result);
         if(!result.success) res.status(401).send("could not add to-dos");
-        else res.status(200).send(result.todoID);
+        else res.status(200).send(JSON.stringify(result.todoID));
     })
 })
 
 router.put('/:todo_id', (req, res,next) => {
+    console.log("here1");
     editTodo(req.params.todo_id, req.body.key, req.body.value, (result) => {
-        if(!result.success) res.status(401).send("could not add to-dos");
-        else res.status(200).send(null);
+        if(!result.success) res.status(401).send("could not change to-do");
+        else res.status(200).send("update successful");
     })
 })
 

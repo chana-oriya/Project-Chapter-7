@@ -10,7 +10,7 @@ const AddTodo = ({ currentuser, setAddTodo, addTodo, setTodos }) => {
       user_id:currentuser.id,
       completed:false
     };
-    const newTodoId = await apiRequest(`http://localhost:3000/todos`, {
+    const newTodoId = await apiRequest(`todos`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
