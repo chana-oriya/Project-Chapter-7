@@ -3,7 +3,7 @@ import React from "react";
 const TodoItem = ({ todo, onToggle }) => {
   const handleChange = () => {
     console.log("changed");
-    //onToggle(todo.id);
+    onToggle(todo.id);
   };
   return (
     <div>

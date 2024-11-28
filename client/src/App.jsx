@@ -20,7 +20,7 @@ useEffect(()=>{
       <Router>
         <Routes>
           <Route path="/" element={<Layout />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login setCurrentuser={setCurrentuser}/>} />
           <Route path="/register" element={<Register />} />
           <Route path="/home" element={<Home setCurrentuser={setCurrentuser}/>}>
               <Route index element={<Info currentuser={currentuser} />} />

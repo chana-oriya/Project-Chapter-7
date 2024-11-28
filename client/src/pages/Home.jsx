@@ -9,7 +9,7 @@ const Home = ({setCurrentuser}) => {
     color: "#3339b3",
   };
   const handleLogout = () => {
-    localStorage.setItem("currentuser", {});
+    localStorage.removeItem("currentuser");
     setCurrentuser({});
     navigate("/login");
   };
