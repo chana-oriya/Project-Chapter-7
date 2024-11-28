@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
+import checkIfLogedin from "../functions/checkIfLogedin";
 
 const Info = ({ currentuser }) => {
+  checkIfLogedin()
   const [formData, setFormData] = useState({});
   useEffect(()=>{
     console.log(' currentuser: ',  currentuser);

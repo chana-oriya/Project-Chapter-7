@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import apiRequest from "../functions/requestApi";
 import { Link, useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ setCurrentuser }) => {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const navigate = useNavigate();
 
@@ -30,6 +30,7 @@ const Login = () => {
       alert(user.error);
     } else {
       localStorage.setItem("currentuser",user);
+      await setCurrentuser(JSON.parse(user))
       console.log('user:', user);
       navigate("/home");
     }
